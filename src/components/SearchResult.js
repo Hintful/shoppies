@@ -10,15 +10,14 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   const [resultPage, setResultPage] = useState(0);
 
   function getSearchResult() {
-    axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchQuery}`) // make search request
+    axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchQuery}&type=movie`) // make search request
       .then(res => {
         const data = res.data;
         const result = data.Search;
         const resultExists = data.Response
 
         if (resultExists === "True") {
-          const movies = result.filter(({ Type }) => Type === "movie") // filter out non-movie results
-          setSearchResult(movies);
+          setSearchResult(result);
           setResultExists(true);
         } else {
           setSearchResult([]);
