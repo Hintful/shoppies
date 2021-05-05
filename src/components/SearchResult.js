@@ -36,7 +36,7 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
 
   function nominateMovie(movie) {
     if (nominated.length < NOMINATE_LIMIT) {
-      setNominated([...nominated, movie])
+      setNominated([...nominated, movie]);
     } else {
       console.log("Nomination limit reached!");
       console.log(nominated);
@@ -48,6 +48,10 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
       getSearchResult();
     }
   }, [searchQuery])
+
+  useEffect(() => {
+    localStorage.setItem('shoppies-nomination', JSON.stringify(nominated));
+  }, [nominated])
 
   return (
     <div>
