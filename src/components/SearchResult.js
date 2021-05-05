@@ -3,8 +3,9 @@ import axios from 'axios';
 import { apiKey } from '../constants/apiKey';
 
 const SEARCH_LENGTH_LIMIT = 3;
+const NOMINATE_LIMIT = 5;
 
-const SearchResult = ({ searchQuery }) => {
+const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   const [searchResult, setSearchResult] = useState([]) // init
   const [resultExists, setResultExists] = useState(false);
 
@@ -29,11 +30,25 @@ const SearchResult = ({ searchQuery }) => {
       })
   }
 
+  function isNominated(movie) {
+    return nominated.find( ({ imdbID }) => imdbID === movie.imdbID ) !== undefined;
+  }
+
+  function nominateMovie(movie) {
+    if (nominated.length < NOMINATE_LIMIT) {
+      setNominated([...nominated, movie])
+    } else {
+      console.log("Nomination limit reached!");
+      console.log(nominated);
+    }
+  }
+
   useEffect(() => {
     if (searchQuery.length >= SEARCH_LENGTH_LIMIT) {
       getSearchResult();
     }
   }, [searchQuery])
+
   return (
     <div>
       { searchQuery.length >= SEARCH_LENGTH_LIMIT && resultExists ?
@@ -44,6 +59,12 @@ const SearchResult = ({ searchQuery }) => {
             Year: {result.Year} <br />
             ID: {result.imdbID} <br />
             Type: {result.Type} <br />
+            <button
+              disabled={isNominated(result)}
+              onClick={e => nominateMovie(result)}
+            >
+              Nominate
+            </button>
           </div>
         ))
 
