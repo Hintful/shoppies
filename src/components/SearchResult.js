@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { apiKey } from '../constants/apiKey';
-
-const SEARCH_LENGTH_LIMIT = 3;
-const NOMINATE_LIMIT = 5;
+import { SEARCH_LENGTH_LIMIT, NOMINATE_LIMIT } from '../constants/Constants';
 
 const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   const [searchResult, setSearchResult] = useState([]) // init
