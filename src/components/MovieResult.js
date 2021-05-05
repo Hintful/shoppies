@@ -25,18 +25,22 @@ const MovieResult = ({ nominated, setNominated, movie }) => {
 
   return (
     <div className="movie-result">
-      <div className="movie-poster">
-        {movie.Poster === "N/A" ?
-          <img src={require('../img/na.png').default} alt="poster-n/a" /> // poster not available
-          :
-          <img src={movie.Poster} alt="poster" /> // poster available
-        }
-      </div>
+      <a target="_blank" href={`https://www.imdb.com/title/${movie.imdbID}`} rel="noreferrer noopener"> { /* Add link to imdb page */}
+        <div className="movie-poster">
+          {movie.Poster === "N/A" ?
+            <img src={require('../img/na.png').default} alt="poster-n/a" /> // poster not available
+            :
+            <img src={movie.Poster} alt="poster" /> // poster available
+          }
+        </div>
+      </a>
       <div className="movie-info">
-        <div className="movie-title">{movie.Title}</div>
+        <a target="_blank" href={`https://www.imdb.com/title/${movie.imdbID}`} rel="noreferrer noopener">
+          <div className="movie-title">{movie.Title}</div>
+        </a>
         <div className="movie-year">{movie.Year}</div>
       </div>
-      
+
       <div className="movie-button">
         <button className={currentlyNominated ? "nominate-button nominate-button-disabled" : "nominate-button nominate-button-enabled"}
           disabled={currentlyNominated}

@@ -62,7 +62,7 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  height: 370px;
+  height: 380px;
   justify-content: center;
   margin-top: 20px;
   gap: 10px;
@@ -92,6 +92,8 @@
   height: 225px;
   display: inline-block;
   overflow: hidden;
+
+  transition: opacity 0.15s ease-in-out;
 }
 
 .movie-poster img {
@@ -100,10 +102,26 @@
   max-width: 150px;
 }
 
+.movie-poster:hover {
+  opacity: 0.7;
+
+  transition: opacity 0.15s ease-in-out;
+}
+
 .movie-info {
   display: flex;
   flex-direction: column;
   gap: 3px;
+  justify-content: center;
+}
+
+.movie-info a:link, .movie-info a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+.movie-info a:hover {
+  text-decoration: underline;
 }
 
 .movie-title {
