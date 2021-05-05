@@ -17,6 +17,12 @@ const Main = () => {
 
   return (
     <div className="wrapper">
+      <div className="logo">
+        <div className="logo-image">
+          <img src="https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-shopping-bag-full-color-66166b2e55d67988b56b4bd28b63c271e2b9713358cb723070a92bde17ad7d63.svg" alt="shopify-logo" />
+        </div>
+        <div className="logo-label"><em>The Shoppies</em></div>
+      </div>
       <div className="container">
         <SearchBox setSearchQuery={setSearchQuery} />
         <SearchResult searchQuery={searchQuery} nominated={nominated} setNominated={setNominated} />

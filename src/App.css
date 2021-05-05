@@ -1,6 +1,6 @@
 @import url("https://use.fontawesome.com/d0c316cf02.js");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css");
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Bebas+Neue&family=Exo+2:ital,wght@1,600&display=swap');
 
 .App {
   display: flex;
@@ -17,6 +17,37 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  overflow: hidden;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.logo-image {
+  height: 50px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.logo-image img {
+  height: 100%;
+  width: auto;
+  max-width: 150px;
+}
+
+.logo-label {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 36px;
+  align-self: center;
+  margin-top: 5px;
 }
 
 .container {
