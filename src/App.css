@@ -1,5 +1,6 @@
 @import url("https://use.fontawesome.com/d0c316cf02.js");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .App {
   display: flex;
@@ -7,13 +8,15 @@
   align-items: center;
   justify-content: center;
   height: 90vh;
+
+  font-family: "Roboto", sans-serif;
 }
 
 .container {
   border-radius: 20px;
   background-color: white;
   width: 70vw;
-  max-width: 800px;
+  max-width: 1000px;
   padding: 20px;
 }
 
@@ -31,8 +34,144 @@
   width: 100%;
   border: none;
   font-size: 24px;
+
+  font-family: "Roboto", sans-serif;
+  letter-spacing: -1px;
 }
 
 .search-bar-input:focus {
   outline: none;
+}
+
+::placeholder {
+  color: #bababa;
+}
+
+.search-result {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 370px;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.movie-result {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+  width: 15%;
+  align-items: center;
+}
+
+.movie-no-result {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  color: #ababab;
+}
+
+.movie-poster {
+  height: 225px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.movie-poster img {
+  height: 100%;
+  width: auto;
+  max-width: 150px;
+}
+
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.movie-title {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.movie-year {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.movie-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.nominate-button {
+  position: absolute;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  
+  width: 90%;
+  bottom: 10px;
+}
+
+.nominate-button-enabled {
+  background-color: #87e7eb;
+  color: white;
+
+  transition: opacity 0.15s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.nominate-button-enabled:hover {
+  opacity: 0.7;
+  cursor: pointer;
+
+  transition: opacity 0.15s ease-in-out;
+}
+
+.nominate-button-disabled {
+  background-color: #dddddd;
+  color: black;
+
+  transition: background-color 0.3s ease-in-out;
+}
+
+.search-page-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0 5px;
+}
+
+.page-left {
+  position: absolute;
+  left: 0;
+}
+
+.page-right {
+  position: absolute;
+  right: 0;
+}
+
+.search-page-button-enabled {
+  color: black;
+}
+
+.search-page-button-enabled:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.search-page-button-disabled {
+  color: #cdcdcd;
 }

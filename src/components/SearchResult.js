@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { apiKey } from '../constants/apiKey';
-import { SEARCH_LENGTH_LIMIT, NOMINATE_LIMIT } from '../constants/Constants';
+import { SEARCH_LENGTH_LIMIT, RESULTS_PER_PAGE } from '../constants/Constants';
+import MovieResult from './MovieResult';
 
 const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   const [searchResult, setSearchResult] = useState([]) // init
   const [resultExists, setResultExists] = useState(false);
+  const [resultPage, setResultPage] = useState(0);
 
   function getSearchResult() {
     axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchQuery}`) // make search request
       .then(res => {
         const data = res.data;
         const result = data.Search;
-        const numResults = data.totalResults;
         const resultExists = data.Response
 
         if (resultExists === "True") {
-          setSearchResult(result);
+          const movies = result.filter(({ Type }) => Type === "movie") // filter out non-movie results
+          setSearchResult(movies);
           setResultExists(true);
         } else {
           setSearchResult([]);
@@ -28,23 +30,16 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
       })
   }
 
-  function isNominated(movie) {
-    return nominated.find( ({ imdbID }) => imdbID === movie.imdbID ) !== undefined;
-  }
 
-  function nominateMovie(movie) {
-    if (nominated.length < NOMINATE_LIMIT) {
-      setNominated([...nominated, movie]);
-    } else {
-      console.log("Nomination limit reached!");
-      console.log(nominated);
-    }
-  }
 
   useEffect(() => {
-    if (searchQuery.length >= SEARCH_LENGTH_LIMIT) {
+    setResultPage(0); // reset result page to 0 if search query changes
+    if (searchQuery === "") {
+      setSearchResult([]);
+    } else if (searchQuery.length >= SEARCH_LENGTH_LIMIT) {
       getSearchResult();
     }
+    // eslint-disable-next-line
   }, [searchQuery])
 
   useEffect(() => {
@@ -52,40 +47,41 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   }, [nominated])
 
   return (
-    <div>
+    <div className="search-result">
+      <div className={ resultPage === 0 ? "search-page-button search-page-button-disabled page-left" : "search-page-button search-page-button-enabled page-left" }
+        onClick={() => {
+          if (resultPage > 0) { setResultPage(resultPage - 1); }
+        }}
+      >
+        <i className="fas fa-chevron-left" />
+      </div>
       { searchQuery.length >= SEARCH_LENGTH_LIMIT && resultExists ?
         // result exists
-        searchResult.map(result => (
-          <div className="movie-result">
-            Title: {result.Title} <br />
-            Year: {result.Year} <br />
-            ID: {result.imdbID} <br />
-            Type: {result.Type} <br />
-            <button
-              disabled={isNominated(result)}
-              onClick={e => nominateMovie(result)}
-            >
-              Nominate
-            </button>
-          </div>
-        ))
+        searchResult
+          .slice(resultPage * RESULTS_PER_PAGE, resultPage * RESULTS_PER_PAGE + RESULTS_PER_PAGE)
+          .map(result => (
+            <MovieResult nominated={nominated} setNominated={setNominated} movie={result} />
+          ))
 
         :
 
-        searchQuery.length < SEARCH_LENGTH_LIMIT ? 
-        // search query too short
-        <div>
-          Type in at least 3 characters!
-        </div>
-        
+        searchQuery.length < SEARCH_LENGTH_LIMIT ?
+          <div className="movie-no-result">No results</div>
+
         :
 
         // no results
         <div className="movie-result">
           No results
         </div>
-    
-    }
+      }
+      <div className={ searchResult.length > (resultPage + 1) * RESULTS_PER_PAGE ? "search-page-button search-page-button-enabled page-right" : "search-page-button search-page-button-disabled page-right" }
+        onClick={() => {
+          if (searchResult.length > (resultPage + 1) * RESULTS_PER_PAGE) { setResultPage(resultPage + 1); }
+        }}
+      >
+        <i className="fas fa-chevron-right" />
+      </div>
     </div>
   );
 }
