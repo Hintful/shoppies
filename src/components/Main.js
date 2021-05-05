@@ -3,7 +3,7 @@ import Nominated from './Nominated';
 import SearchBox from './SearchBox';
 import SearchResult from './SearchResult';
 
-const Container = () => {
+const Main = () => {
   const [searchQuery, setSearchQuery] = useState(""); // state for storing search query
   const [nominated, setNominated] = useState(() => {
     try {
@@ -16,12 +16,17 @@ const Container = () => {
   });
 
   return (
-    <div className="container">
-      <SearchBox searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <SearchResult searchQuery={searchQuery} nominated={nominated} setNominated={setNominated} />
-      <Nominated nominated={nominated} setNominated={setNominated} />
+    <div className="wrapper">
+      <div className="container">
+        <SearchBox setSearchQuery={setSearchQuery} />
+        <SearchResult searchQuery={searchQuery} nominated={nominated} setNominated={setNominated} />
+      </div>
+      <div className="container">
+        <Nominated nominated={nominated} setNominated={setNominated} />
+      </div>
     </div>
+
   );
 }
 
-export default Container;
+export default Main;

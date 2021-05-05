@@ -71,7 +71,7 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
         :
 
         // no results
-        <div className="movie-result">
+        <div className="movie-no-result">
           No results
         </div>
       }
