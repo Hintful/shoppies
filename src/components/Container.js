@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Nominated from './Nominated';
 import SearchBox from './SearchBox';
 import SearchResult from './SearchResult';
 
@@ -10,6 +11,7 @@ const Container = () => {
     <div>
       <SearchBox setSearchQuery={setSearchQuery} />
       <SearchResult searchQuery={searchQuery} nominated={nominated} setNominated={setNominated} />
+      <Nominated nominated={nominated} setNominated={setNominated} />
     </div>
   );
 }
