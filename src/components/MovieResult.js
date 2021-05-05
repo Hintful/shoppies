@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NOMINATE_LIMIT } from '../constants/Constants';
+import { NOMINATE_LIMIT, MAXIMUM_TITLE_LENGTH } from '../constants/Constants';
 
 const MovieResult = ({ nominated, setNominated, movie }) => {
   const [currentlyNominated, setCurrentlyNominated] = useState(() => isNominated(movie));
@@ -36,7 +36,9 @@ const MovieResult = ({ nominated, setNominated, movie }) => {
       </a>
       <div className="movie-info">
         <a target="_blank" href={`https://www.imdb.com/title/${movie.imdbID}`} rel="noreferrer noopener">
-          <div className="movie-title">{movie.Title}</div>
+          <div className="movie-title">
+            { movie.Title.length > MAXIMUM_TITLE_LENGTH ? movie.Title.slice(0, MAXIMUM_TITLE_LENGTH) + "..." : movie.Title } { /* omit some characters if title is too long */ }
+          </div>
         </a>
         <div className="movie-year">{movie.Year}</div>
       </div>
