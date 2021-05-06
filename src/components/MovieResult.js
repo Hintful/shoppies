@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NOMINATE_LIMIT, MAXIMUM_TITLE_LENGTH } from '../constants/Constants';
 
-const MovieResult = ({ nominated, setNominated, movie }) => {
-  const [currentlyNominated, setCurrentlyNominated] = useState(() => isNominated(movie));
+const MovieResult = ({ nominated, setNominated = null, removeNominated = null, movie, type }) => {
 
   function isNominated(movie) {
     return nominated.find(({ imdbID }) => imdbID === movie.imdbID) !== undefined;
   }
-
-  useEffect(() => {
-    setCurrentlyNominated(isNominated(movie));
-    // eslint-disable-next-line
-  }, [nominated])
 
 
   function nominateMovie(movie) {
@@ -44,22 +38,33 @@ const MovieResult = ({ nominated, setNominated, movie }) => {
       </div>
 
       <div className="movie-button">
-        <button className={currentlyNominated ? "nominate-button nominate-button-disabled" : "nominate-button nominate-button-enabled"}
-          disabled={currentlyNominated}
-          onClick={e => nominateMovie(movie)}
-        >
-          {currentlyNominated ?
-            <div>
-              <i className="fas fa-check-circle" />
-              &nbsp;Nominated
-            </div>
-            :
-            <div>
-              <i className="fas fa-mouse-pointer" />
-              &nbsp;Nominate
-            </div>
-          }
-        </button>
+        { type === "search" ?
+          // button when type is search
+          <button className={isNominated(movie) ? "nominate-button nominate-button-disabled" : "nominate-button nominate-button-enabled"}
+            disabled={isNominated(movie)}
+            onClick={() => nominateMovie(movie)}
+          >
+            {isNominated(movie) ?
+              <div>
+                <i className="fas fa-check-circle" />
+                &nbsp;Nominated
+              </div>
+              :
+              <div>
+                <i className="fas fa-mouse-pointer" />
+                &nbsp;Nominate
+              </div>
+            }
+          </button>
+          :
+          // button when type is nomination
+          <button className="nominate-button remove-nomination-button"
+            onClick={() => removeNominated(movie)}
+          >
+            <i className="fas fa-trash-alt" />
+            &nbsp;Remove
+          </button>
+        }
       </div>
     </div>
   );

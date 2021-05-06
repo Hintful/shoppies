@@ -188,13 +188,20 @@
 }
 
 .nominate-button-enabled {
-  background-color: #87e7eb;
+  background-color: #A5CF57;
   color: white;
 
   transition: opacity 0.15s ease-in-out, background-color 0.3s ease-in-out;
 }
 
-.nominate-button-enabled:hover {
+.remove-nomination-button {
+  background-color: #ff4d4d;
+  color: white;
+
+  transition: opacity 0.15s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.nominate-button-enabled:hover, .remove-nomination-button:hover {
   opacity: 0.7;
   cursor: pointer;
 
@@ -241,4 +248,26 @@
 
 .no-nomination {
   height: 400px;
+}
+
+.nomination-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nominated-movies {
+  display: flex;
+  flex-direction: row;
+  height: 380px;
+  width: 100%;
+  position: relative;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.nomination-title {
+  font-size: 24px;
+  margin-bottom: 10px;
 }

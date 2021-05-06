@@ -1,4 +1,5 @@
 import React from 'react';
+import MovieResult from './MovieResult';
 
 const Nominated = ({ nominated, setNominated }) => {
   function removeNomination(removedMovie) {
@@ -7,15 +8,17 @@ const Nominated = ({ nominated, setNominated }) => {
 
   return (
     <div className="nomination-container">
+      <div className="nomination-title">
+        Your nomination
+      </div>
       { nominated.length > 0 ?
-        nominated.map(movie => (
-          <div>
-            { movie.Title}
-            <button onClick={e => removeNomination(movie)}>
-              Remove
-          </button>
-          </div>
-        ))
+        <div className="nominated-movies">
+        {
+          nominated.map(movie => (
+            <MovieResult nominated={nominated} setNominated={setNominated} removeNominated={removeNomination} movie={movie} />
+          ))
+        }
+        </div>
         :
         <div className="no-nomination">
           No nominations

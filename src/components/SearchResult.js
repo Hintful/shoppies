@@ -50,6 +50,7 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
     <div className="search-result"
       style={{ marginBottom: searchResult.length > 0 ? "20px" : "0px" }}
     >
+      { /* left page button */}
       { searchResult.length > 0 &&
         <div className={ resultPage === 0 ? "search-page-button search-page-button-disabled page-left" : "search-page-button search-page-button-enabled page-left" }
           onClick={() => {
@@ -59,27 +60,17 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
           <i className="fas fa-chevron-left" />
         </div>
       }
+
+      { /* Search results */ }
       { ( searchQuery.length >= SEARCH_LENGTH_LIMIT && resultExists) &&
-        // result exists
         searchResult
           .slice(resultPage * RESULTS_PER_PAGE, resultPage * RESULTS_PER_PAGE + RESULTS_PER_PAGE)
           .map(result => (
-            <MovieResult nominated={nominated} setNominated={setNominated} movie={result} />
+            <MovieResult nominated={nominated} setNominated={setNominated} movie={result} type="search" />
           ))
-
-        // :
-
-        // searchQuery.length < SEARCH_LENGTH_LIMIT ?
-        //   // <div className="movie-no-result">No results</div>
-        //   <></>
-        // :
-
-        // // no results
-        // // <div className="movie-no-result">
-        // //   No results
-        // // </div>
-        // <></>
       }
+
+      { /* right page button */ }
       { searchResult.length > 0 &&
         <div className={ searchResult.length > (resultPage + 1) * RESULTS_PER_PAGE ? "search-page-button search-page-button-enabled page-right" : "search-page-button search-page-button-disabled page-right" }
           style={{ visibility: searchQuery.length === 0 ? "hidden" : "visible" }}
