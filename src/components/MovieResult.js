@@ -1,5 +1,6 @@
 import React from 'react';
 import { NOMINATE_LIMIT, MAXIMUM_TITLE_LENGTH } from '../constants/Constants';
+import toast, { Toaster } from 'react-hot-toast';
 
 const MovieResult = ({ nominated, setNominated = null, removeNominated = null, movie, type }) => {
 
@@ -7,15 +8,23 @@ const MovieResult = ({ nominated, setNominated = null, removeNominated = null, m
     return nominated.find(({ imdbID }) => imdbID === movie.imdbID) !== undefined;
   }
 
-
   function nominateMovie(movie) {
     if (nominated.length < NOMINATE_LIMIT) {
       setNominated([...nominated, movie]);
+      notifyNominateSuccess();
     } else {
-      console.log("Nomination limit reached!");
-      console.log(nominated);
+      notifyNominateFail();
     }
   }
+
+  function removeMovie(movie) {
+    removeNominated(movie);
+    notifyRemoveSuccess();
+  }
+
+  const notifyNominateSuccess = () => { toast.dismiss(); toast.success('Nominated!'); }
+  const notifyRemoveSuccess = () => { toast.dismiss(); toast.success('Removed!'); }
+  const notifyNominateFail = () => { toast.dismiss(); toast.error('No more movies can be nominated!'); }
 
   return (
     <div className="movie-result">
@@ -59,13 +68,14 @@ const MovieResult = ({ nominated, setNominated = null, removeNominated = null, m
           :
           // button when type is nomination
           <button className="nominate-button remove-nomination-button"
-            onClick={() => removeNominated(movie)}
+            onClick={() => removeMovie(movie)}
           >
             <i className="fas fa-trash-alt" />
             &nbsp;Remove
           </button>
         }
       </div>
+      <Toaster />
     </div>
   );
 }
