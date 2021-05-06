@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NOMINATE_LIMIT, MAXIMUM_TITLE_LENGTH } from '../constants/Constants';
 import toast, { Toaster } from 'react-hot-toast';
 
+function useRerender(){
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update the state to force render
+}
+
 const MovieResult = ({ nominated, setNominated = null, removeNominated = null, movie, type }) => {
+
+  const reRender = useRerender();
 
   function isNominated(movie) {
     return nominated.find(({ imdbID }) => imdbID === movie.imdbID) !== undefined;
@@ -22,6 +29,15 @@ const MovieResult = ({ nominated, setNominated = null, removeNominated = null, m
     notifyRemoveSuccess();
   }
 
+  function removeBrokenLink(movie) {
+    movie.Poster = "N/A";
+    reRender();
+  }
+
+  useEffect(() => {
+
+  }, [movie])
+
   const notifyNominateSuccess = () => { toast.dismiss(); toast.success('Nominated!'); }
   const notifyRemoveSuccess = () => { toast.dismiss(); toast.success('Removed!'); }
   const notifyNominateFail = () => { toast.dismiss(); toast.error('No more movies can be nominated!'); }
@@ -33,7 +49,9 @@ const MovieResult = ({ nominated, setNominated = null, removeNominated = null, m
           {movie.Poster === "N/A" ?
             <img src={require('../img/na.png').default} alt="poster-n/a" /> // poster not available
             :
-            <img src={movie.Poster} alt="poster" /> // poster available
+            <img src={movie.Poster} alt="poster" 
+              onError={() => { removeBrokenLink(movie); }} 
+            /> // poster available
           }
         </div>
       </a>
