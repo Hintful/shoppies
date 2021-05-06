@@ -7,7 +7,7 @@ const SearchBox = ({ setSearchQuery }) => {
       <div className="search-bar">
         <i className="fas fa-search search-icon" style={{ color: "#bdbdbd", fontSize: "20px" }} />
         <DebounceInput className="search-bar-input" minLength={3} debounceTimeout={500} onChange={e => setSearchQuery(e.target.value)} 
-          placeholder="Please enter title of the movie!"
+          placeholder="Search by title"
         />
       </div>
     </div>
