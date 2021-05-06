@@ -10,6 +10,7 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   const [resultPage, setResultPage] = useState(0);
 
   function getSearchResult() {
+    // TODO: page = 1 by default, must get parameter to allow more extensive search
     axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchQuery}&type=movie`) // make search request
       .then(res => {
         const data = res.data;
