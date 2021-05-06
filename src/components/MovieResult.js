@@ -3,6 +3,7 @@ import { NOMINATE_LIMIT, MAXIMUM_TITLE_LENGTH } from '../constants/Constants';
 import toast, { Toaster } from 'react-hot-toast';
 
 function useRerender(){
+  // eslint-disable-next-line
   const [value, setValue] = useState(0); // integer state
   return () => setValue(value => value + 1); // update the state to force render
 }

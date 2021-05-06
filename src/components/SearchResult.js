@@ -3,6 +3,7 @@ import axios from 'axios';
 import { apiKey } from '../constants/apiKey';
 import { SEARCH_LENGTH_LIMIT, RESULTS_PER_PAGE, NUM_FETCH_MOVIES } from '../constants/Constants';
 import MovieResult from './MovieResult';
+import BarLoader from 'react-spinners/BarLoader';
 
 const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   const [searchResult, setSearchResult] = useState([]) // init
@@ -25,13 +26,17 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
           if (resultExists === "True") {
             // setSearchResult([...searchResult, ...result])
             results.push(...result);
-            setResultExists(true);
           }
         })
     }
 
-    setLoadingStatus(2);
-    setSearchResult(results);
+    if (results.length > 0) {
+      setSearchResult(results);
+      setResultExists(true);
+    } else {
+      setResultExists(false);
+    }
+    setLoadingStatus(2);    
 
     // axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchQuery}&type=movie`) // make search request
     //   .then(res => {
@@ -90,12 +95,16 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
       }
 
       { /* Search results */ }
-      { ( searchQuery.length >= SEARCH_LENGTH_LIMIT && resultExists) &&
+      { ( searchQuery.length >= SEARCH_LENGTH_LIMIT && resultExists) ?
         searchResult
           .slice(resultPage * RESULTS_PER_PAGE, resultPage * RESULTS_PER_PAGE + RESULTS_PER_PAGE)
           .map(result => (
             <MovieResult nominated={nominated} setNominated={setNominated} movie={result} type="search" />
           ))
+        :
+        <div className="movie-no-result">
+          No results
+        </div>
       }
 
       { /* right page button */ }
@@ -114,7 +123,10 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
     loadingStatus === 1 ?
     // loading
     <div className="loading-result">
-      Loading
+      <div className="loader">
+        <div style={{ display: "inline-block" }}>Loading...</div> 
+        <BarLoader color={'#A5CF57'} loading={true} height={4} width={100} />
+      </div>
     </div>
     :
     // no query
