@@ -14,8 +14,8 @@ const Nominated = ({ nominated, setNominated }) => {
       { nominated.length > 0 ?
         <div className="nominated-movies">
         {
-          nominated.map(movie => (
-            <MovieResult nominated={nominated} setNominated={setNominated} removeNominated={removeNomination} movie={movie} />
+          nominated.map((movie, idx) => (
+            <MovieResult nominated={nominated} setNominated={setNominated} removeNominated={removeNomination} movie={movie} key={`movie-${idx}`}/>
           ))
         }
         </div>

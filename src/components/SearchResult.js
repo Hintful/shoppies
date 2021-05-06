@@ -24,7 +24,6 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
           const resultExists = data.Response
 
           if (resultExists === "True") {
-            // setSearchResult([...searchResult, ...result])
             results.push(...result);
           }
         })
@@ -37,24 +36,6 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
       setResultExists(false);
     }
     setLoadingStatus(2);    
-
-    // axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchQuery}&type=movie`) // make search request
-    //   .then(res => {
-    //     const data = res.data;
-    //     const result = data.Search;
-    //     const resultExists = data.Response
-
-    //     if (resultExists === "True") {
-    //       setSearchResult(result);
-    //       setResultExists(true);
-    //     } else {
-    //       setSearchResult([]);
-    //       setResultExists(false);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
   }
 
 
@@ -98,8 +79,8 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
       { ( searchQuery.length >= SEARCH_LENGTH_LIMIT && resultExists) ?
         searchResult
           .slice(resultPage * RESULTS_PER_PAGE, resultPage * RESULTS_PER_PAGE + RESULTS_PER_PAGE)
-          .map(result => (
-            <MovieResult nominated={nominated} setNominated={setNominated} movie={result} type="search" />
+          .map((result, idx) => (
+            <MovieResult nominated={nominated} setNominated={setNominated} movie={result} type="search" key={`movie-${idx}`}/>
           ))
         :
         <div className="movie-no-result">
