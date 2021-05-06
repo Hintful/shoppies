@@ -79,7 +79,7 @@
   font-size: 20px;
 
   font-family: "Roboto", sans-serif;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
 }
 
 .search-bar-input:focus {
@@ -270,4 +270,5 @@
 .nomination-title {
   font-size: 24px;
   margin-bottom: 10px;
+  letter-spacing: -1px;
 }
