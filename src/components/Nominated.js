@@ -5,18 +5,24 @@ const Nominated = ({ nominated, setNominated }) => {
     setNominated(nominated.filter(movie => movie.imdbID !== removedMovie.imdbID));
   }
 
-  return (  
-    <div>
-      { nominated.map(movie => (
-        <div>
-          { movie.Title }
-          <button onClick={e => removeNomination(movie)}>
-            Remove
+  return (
+    <div className="nomination-container">
+      { nominated.length > 0 ?
+        nominated.map(movie => (
+          <div>
+            { movie.Title}
+            <button onClick={e => removeNomination(movie)}>
+              Remove
           </button>
+          </div>
+        ))
+        :
+        <div className="no-nomination">
+          No nominations
         </div>
-      ))}
+    }
     </div>
   );
 }
- 
+
 export default Nominated;

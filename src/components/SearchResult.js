@@ -47,15 +47,19 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   }, [nominated])
 
   return (
-    <div className="search-result">
-      <div className={ resultPage === 0 ? "search-page-button search-page-button-disabled page-left" : "search-page-button search-page-button-enabled page-left" }
-        onClick={() => {
-          if (resultPage > 0) { setResultPage(resultPage - 1); }
-        }}
-      >
-        <i className="fas fa-chevron-left" />
-      </div>
-      { searchQuery.length >= SEARCH_LENGTH_LIMIT && resultExists ?
+    <div className="search-result"
+      style={{ marginBottom: searchResult.length > 0 ? "20px" : "0px" }}
+    >
+      { searchResult.length > 0 &&
+        <div className={ resultPage === 0 ? "search-page-button search-page-button-disabled page-left" : "search-page-button search-page-button-enabled page-left" }
+          onClick={() => {
+            if (resultPage > 0) { setResultPage(resultPage - 1); }
+          }}
+        >
+          <i className="fas fa-chevron-left" />
+        </div>
+      }
+      { ( searchQuery.length >= SEARCH_LENGTH_LIMIT && resultExists) &&
         // result exists
         searchResult
           .slice(resultPage * RESULTS_PER_PAGE, resultPage * RESULTS_PER_PAGE + RESULTS_PER_PAGE)
@@ -63,25 +67,29 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
             <MovieResult nominated={nominated} setNominated={setNominated} movie={result} />
           ))
 
-        :
+        // :
 
-        searchQuery.length < SEARCH_LENGTH_LIMIT ?
-          <div className="movie-no-result">No results</div>
+        // searchQuery.length < SEARCH_LENGTH_LIMIT ?
+        //   // <div className="movie-no-result">No results</div>
+        //   <></>
+        // :
 
-        :
-
-        // no results
-        <div className="movie-no-result">
-          No results
+        // // no results
+        // // <div className="movie-no-result">
+        // //   No results
+        // // </div>
+        // <></>
+      }
+      { searchResult.length > 0 &&
+        <div className={ searchResult.length > (resultPage + 1) * RESULTS_PER_PAGE ? "search-page-button search-page-button-enabled page-right" : "search-page-button search-page-button-disabled page-right" }
+          style={{ visibility: searchQuery.length === 0 ? "hidden" : "visible" }}
+          onClick={() => {
+            if (searchResult.length > (resultPage + 1) * RESULTS_PER_PAGE) { setResultPage(resultPage + 1); }
+          }}
+        >
+          <i className="fas fa-chevron-right" />
         </div>
       }
-      <div className={ searchResult.length > (resultPage + 1) * RESULTS_PER_PAGE ? "search-page-button search-page-button-enabled page-right" : "search-page-button search-page-button-disabled page-right" }
-        onClick={() => {
-          if (searchResult.length > (resultPage + 1) * RESULTS_PER_PAGE) { setResultPage(resultPage + 1); }
-        }}
-      >
-        <i className="fas fa-chevron-right" />
-      </div>
     </div>
   );
 }
