@@ -1,5 +1,6 @@
 import React from 'react';
 import MovieResult from './MovieResult';
+import { NOMINATE_LIMIT } from '../constants/Constants';
 
 const Nominated = ({ nominated, setNominated }) => {
   function removeNomination(removedMovie) {
@@ -23,7 +24,13 @@ const Nominated = ({ nominated, setNominated }) => {
         <div className="no-nomination">
           No nominations
         </div>
-    }
+      }
+      { nominated.length === NOMINATE_LIMIT &&
+        // nomination completed
+        <div className="nomination-complete">
+          Completed!
+        </div>
+      }
     </div>
   );
 }
