@@ -28,7 +28,8 @@ const Nominated = ({ nominated, setNominated }) => {
       { nominated.length === NOMINATE_LIMIT &&
         // nomination completed
         <div className="nomination-complete">
-          Completed!
+          <i className="fas fa-check-circle" />
+          Submit Nomination
         </div>
       }
     </div>
