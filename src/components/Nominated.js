@@ -13,7 +13,6 @@ const Nominated = ({ nominated, setNominated, setSearchQuery }) => {
 
     setTimeout(() => {
       setNominated([]); // reset nomination list
-      setSearchQuery(""); // reset search query
       notifySubmissionSuccess();
       setSubmitStatus(0);
     }, 2000)
