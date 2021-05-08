@@ -28,7 +28,7 @@ const Main = () => {
         <SearchResult searchQuery={searchQuery} nominated={nominated} setNominated={setNominated} />
       </div>
       <div className="container">
-        <Nominated nominated={nominated} setNominated={setNominated} />
+        <Nominated nominated={nominated} setNominated={setNominated} setSearchQuery={setSearchQuery} />
       </div>
     </div>
 

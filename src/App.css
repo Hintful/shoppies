@@ -305,14 +305,25 @@
   padding: 20px;
   border-radius: 25px;
   font-size: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   margin-top: 20px;
   gap: 5px;
   transition: opacity 0.15s ease-in-out;
+}
+
+.nomination-submitting {
+  background-color: #cdcdcd;
+  color: black;
+
 }
 
 .nomination-complete:hover {
   opacity: 0.7;
   cursor: pointer;
   transition: opacity 0.15s ease-in-out;
+}
+
+.nomination-submitting:hover {
+  opacity: 1;
+  cursor: default;
 }
