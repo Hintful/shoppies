@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { apiKey } from '../constants/apiKey';
 import { SEARCH_LENGTH_LIMIT, RESULTS_PER_PAGE, NUM_FETCH_MOVIES } from '../constants/Constants';
 import MovieResult from './MovieResult';
 import BarLoader from 'react-spinners/BarLoader';
@@ -14,10 +13,11 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   async function getSearchResult() {
     // TODO: page = 1 by default, must get parameter to allow more extensive search
 
+    const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
     let results = [];
 
     for (let page = 1; page <= (NUM_FETCH_MOVIES / 10); page += 1) {
-      await axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchQuery}&type=movie&page=${page}`)
+      await axios.get(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}&type=movie&page=${page}`)
         .then(res => {
           const data = res.data;
           const result = data.Search;
