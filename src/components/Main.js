@@ -3,7 +3,9 @@ import Nominated from './Nominated';
 import SearchBox from './SearchBox';
 import SearchResult from './SearchResult';
 
+
 const Main = () => {
+  require('dotenv').config();
   const [searchQuery, setSearchQuery] = useState(""); // state for storing search query
   const [nominated, setNominated] = useState(() => {
     try {
