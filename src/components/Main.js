@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Nominated from './Nominated';
 import SearchBox from './SearchBox';
 import SearchResult from './SearchResult';
-
+import dotenv from 'dotenv';
 
 const Main = () => {
-  require('dotenv').config();
+  dotenv.config();
   const [searchQuery, setSearchQuery] = useState(""); // state for storing search query
   const [nominated, setNominated] = useState(() => {
     try {
