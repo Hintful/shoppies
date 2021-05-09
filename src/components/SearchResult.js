@@ -4,6 +4,9 @@ import { SEARCH_LENGTH_LIMIT, RESULTS_PER_PAGE, NUM_FETCH_MOVIES } from '../cons
 import MovieResult from './MovieResult';
 import BarLoader from 'react-spinners/BarLoader';
 
+require('dotenv').config();
+const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
+
 const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   const [searchResult, setSearchResult] = useState([]) // init
   const [resultExists, setResultExists] = useState(false);
@@ -13,7 +16,6 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   async function getSearchResult() {
     // TODO: page = 1 by default, must get parameter to allow more extensive search
 
-    const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
     let results = [];
 
     for (let page = 1; page <= (NUM_FETCH_MOVIES / 10); page += 1) {
