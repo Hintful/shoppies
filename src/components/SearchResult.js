@@ -13,8 +13,6 @@ const SearchResult = ({ searchQuery, nominated, setNominated }) => {
   const [loadingStatus, setLoadingStatus] = useState(0); // 0 = no query, 1 = loading, 2 = loaded
 
   async function getSearchResult() {
-    // TODO: page = 1 by default, must get parameter to allow more extensive search
-
     let results = [];
 
     for (let page = 1; page <= (NUM_FETCH_MOVIES / 10); page += 1) {
