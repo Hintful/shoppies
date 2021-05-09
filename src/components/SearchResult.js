@@ -4,7 +4,6 @@ import { SEARCH_LENGTH_LIMIT, RESULTS_PER_PAGE, NUM_FETCH_MOVIES } from '../cons
 import MovieResult from './MovieResult';
 import BarLoader from 'react-spinners/BarLoader';
 
-require('dotenv').config();
 const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
 
 const SearchResult = ({ searchQuery, nominated, setNominated }) => {
